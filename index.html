@@ -1,1 +1,99 @@
-<h1>Audit App</h1>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Alder Technology Audit App</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background: #f3f6fa;
+      color: #333;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    .button-group {
+      margin-bottom: 20px;
+    }
+
+    button {
+      padding: 10px 16px;
+      margin-right: 10px;
+      border: none;
+      background: #107c10;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    button:hover {
+      background: #0c5a0c;
+    }
+
+    .card {
+      background: white;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+      max-width: 800px;
+    }
+
+    pre {
+      background: #f4f4f4;
+      padding: 10px;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+
+<body>
+
+<h1>Alder Audit App</h1>
+
+<div class="button-group">
+  <button onclick="login()">Login</button>
+  <button onclick="callApi()">Call API</button>
+</div>
+
+<div class="card">
+  <div id="output">No data yet</div>
+</div>
+
+<script>
+
+// ✅ LOGIN FIX
+function login() {
+  window.location.href = "/login";
+}
+
+// 🔗 API TEST
+async function callApi() {
+  const output = document.getElementById("output");
+
+  try {
+    const res = await fetch("/api/test", {
+      credentials: "include"
+    });
+    const data = await res.json();
+
+    output.innerHTML = `
+      <strong>✅ API WORKING</strong><br><br>
+      <pre>${JSON.stringify(data, null, 2)}</pre>
+    `;
+
+  } catch (err) {
+    output.innerHTML = `
+      <strong>❌ API FAILED</strong><br><br>
+      <pre>${err}</pre>
+    `;
+  }
+}
+
+</script>
+
+</body>
+</html>
